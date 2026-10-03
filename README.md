@@ -83,11 +83,11 @@ You can also build it yourself (see below).
 The source is plain C++17 and the Win32 API, built with CMake (3.16 or later).
 Either compiler works.
 
-**Visual Studio 2022** (or the free Build Tools, with the *Desktop development
-with C++* workload):
+**Visual Studio** 2022 or later (or the free Build Tools, with the *Desktop
+development with C++* workload):
 
 ```bash
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -A x64
 cmake --build build --config Release
 ctest --test-dir build -C Release
 ```
