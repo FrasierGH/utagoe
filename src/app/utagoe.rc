@@ -1,0 +1,59 @@
+#pragma code_page(65001)
+#include <winver.h>
+#include <winuser.h>
+
+1 RT_MANIFEST "utagoe.manifest"
+
+MAINICON ICON "../../res/utagoe.ico"
+
+BMP_OPEN       BITMAP "../../res/open.bmp"
+BMP_NOTE       BITMAP "../../res/note.bmp"
+BMP_PLAY       BITMAP "../../res/play.bmp"
+BMP_QUIT       BITMAP "../../res/quit.bmp"
+BMP_ABOUT      BITMAP "../../res/about.bmp"
+BMP_SETTINGS   BITMAP "../../res/settings.bmp"
+BMP_OK         BITMAP "../../res/ok.bmp"
+BMP_CANCEL     BITMAP "../../res/cancel.bmp"
+BMP_HELP       BITMAP "../../res/help.bmp"
+BMP_MP_PLAY    BITMAP "../../res/mp_play.bmp"
+BMP_MP_PLAY_D  BITMAP "../../res/mp_play_disabled.bmp"
+BMP_MP_PAUSE   BITMAP "../../res/mp_pause.bmp"
+BMP_MP_PAUSE_D BITMAP "../../res/mp_pause_disabled.bmp"
+BMP_MP_STOP    BITMAP "../../res/mp_stop.bmp"
+BMP_MP_STOP_D  BITMAP "../../res/mp_stop_disabled.bmp"
+BMP_MP_PREV    BITMAP "../../res/mp_prev.bmp"
+BMP_MP_PREV_D  BITMAP "../../res/mp_prev_disabled.bmp"
+BMP_LOGO       BITMAP "../../res/logo.bmp"
+
+HELP_EN RCDATA "../../res/UtagoeHelp.html"
+HELP_JA RCDATA "../../res/UtagoeHelp_ja.pdf"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,0,0,0
+ PRODUCTVERSION 3,0,0,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104b0"
+        BEGIN
+            VALUE "CompanyName", ""
+            VALUE "FileDescription", "歌声りっぷ"
+            VALUE "FileVersion", "3.0.0.0"
+            VALUE "InternalName", "utagoe"
+            VALUE "LegalCopyright", "Copyright (C) 1999-2009  TODAKEN / port: MIT License"
+            VALUE "OriginalFilename", "utagoe.exe"
+            VALUE "ProductName", "歌声りっぷ"
+            VALUE "ProductVersion", "3.0.0.0"
+            VALUE "Comments", "Open-source rebuild of Utagoe Rip 3.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END

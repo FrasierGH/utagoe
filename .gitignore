@@ -1,0 +1,17 @@
+# the original program (keep your copies here; they are not part of the repository)
+original/
+*.exe
+*.lzh
+
+# audio
+*.wav
+
+# build output
+build/
+dist/
+out/
+.vs/
+CMakeUserPresets.json
+
+# tools/rip_assets.py
+__pycache__/

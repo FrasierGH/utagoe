@@ -1,0 +1,60 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write       # create releases
+  id-token: write       # build provenance attestation
+  attestations: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash build/Release/utagoe.exe -Algorithm SHA256).Hash.ToLower()
+          "$hash  utagoe.exe" | Out-File -Encoding ascii build/Release/utagoe.exe.sha256
+          Get-Content build/Release/utagoe.exe.sha256
+
+      # Proves the exe was built here from this commit: gh attestation verify utagoe.exe --repo FrasierGH/utagoe
+      # (available for public repositories; skipped without failing the build elsewhere)
+      - name: Attest build provenance
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: build/Release/utagoe.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: utagoe-exe
+          path: |
+            build/Release/utagoe.exe
+            build/Release/utagoe.exe.sha256
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/Release/utagoe.exe
+            build/Release/utagoe.exe.sha256
+          generate_release_notes: true
