@@ -31,7 +31,8 @@ jobs:
         shell: pwsh
         run: |
           $hash = (Get-FileHash build/Release/utagoe.exe -Algorithm SHA256).Hash.ToLower()
-          "$hash  utagoe.exe" | Out-File -Encoding ascii build/Release/utagoe.exe.sha256
+          # LF line ending, so `sha256sum -c utagoe.exe.sha256` works everywhere
+          [IO.File]::WriteAllText("$PWD/build/Release/utagoe.exe.sha256", "$hash  utagoe.exe`n")
           Get-Content build/Release/utagoe.exe.sha256
 
       # Proves the exe was built here from this commit: gh attestation verify utagoe.exe --repo FrasierGH/utagoe
